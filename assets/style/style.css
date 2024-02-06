@@ -1,0 +1,35 @@
+
+#frenteCard {
+    display: block;
+}
+
+#versoCard {
+    display: none;
+}
+
+.cartao {
+    height: 180px;
+    width: 300px;
+}
+
+.logo-cartao {
+    width: 40px;
+}
+
+.chip-cartao {
+    width: 35px;
+    margin-top: 15px;
+}
+
+.numero-cartao {
+    font-size: 1.2rem;
+}
+
+.dados-titular {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-titulo-cvc {
+    margin-top: 50px;
+}
