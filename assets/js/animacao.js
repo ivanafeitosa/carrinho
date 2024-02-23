@@ -9,8 +9,8 @@ let cartaoLogo = document.getElementById('cartao-logo')
 
 //Preenchendo o número no cartão
 inputNumero.addEventListener('keyup', () => {
-    inputNumero.value = mcc(inputNumero.value);
-    cartaoNumero.innerText = mcc(inputNumero.value);
+    inputNumero.value = inputNumero.value;
+    cartaoNumero.innerText = inputNumero.value;
 
     if(inputNumero.value.substring(0,1) == '4') {
         cartaoLogo.src = 'assets/images/visa.png'
@@ -19,11 +19,20 @@ inputNumero.addEventListener('keyup', () => {
     }
 });
 
+//Limitando a quantidade de dígitos que podem ser digitados (todo cartao tem 16 números)
+inputNumero.addEventListener('keydown', () => {
+    if (inputNumero.value.length <= 16) {
+        inputNumero.value = inputNumero.value;
+    }
+
+    inputNumero.value = inputNumero.value.substr(0, 15); 
+})
+
 //Add mascara para colocar espaço nos número do cartao
-function mcc(v) {
-    v = v.replace(/\D/g, "");
-    return v.match(/\d{1,4}/g).join(' ');
-}
+// function mcc(v) {
+//     v = v.replace(/\D/g, "");
+//     return v.match(/\d{1,4}/g).join(' ');
+// }
 
 //Preenchendo o nome do titular no cartão
 inputTitular.addEventListener('keyup', () => cartaoTitular.innerText = inputTitular.value.toUpperCase());

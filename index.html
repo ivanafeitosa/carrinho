@@ -22,7 +22,7 @@
                     <th scope="col">Total</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-itens">
                   <tr>
                     <td>Pinga</td>
                     <td id="preco">R$ 25.99</td>
@@ -43,7 +43,7 @@
             <article class="col">
                 <form action="">
                     <label for="">Número</label>
-                    <input type="text" class="form-control mb-3" placeholder="0000 0000 0000 0000" id="numero">
+                    <input type="number" class="form-control mb-3" placeholder="0000 0000 0000 0000" id="numero">
                     <label for="">Titular</label>
                     <input type="text" class="form-control mb-3" placeholder="Ivana Feitosa Silva" id="titular">
                     <div class="row">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <label for="">CPF</label>
-                    <input type="text" class="form-control mb-3" placeholder="000.000.000-00" id="cpf">
+                    <input type="number" class="form-control mb-3" placeholder="000.000.000-00" id="cpf">
                     <button class="btn btn-success w-100" id="compra">Finalizar compra</button>
                 </form>
             </article>
@@ -95,7 +95,7 @@
 
 
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/carrinho.js"></script>
     <script src="assets/js/validacao.js"></script>
     <script src="assets/js/animacao.js"></script>
 </body>
