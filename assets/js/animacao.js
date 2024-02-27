@@ -5,17 +5,23 @@ let cartaoValidade = document.getElementById('card-validade');
 let cartaoCvc = document.getElementById('card-cvc');
 let frenteCartao = document.getElementById('frenteCard');
 let versoCartao = document.getElementById('versoCard'); 
-let cartaoLogo = document.getElementById('cartao-logo')
+let cartaoLogo = document.getElementById('cartao-logo');
 
 //Preenchendo o número no cartão
 inputNumero.addEventListener('keyup', () => {
     inputNumero.value = inputNumero.value;
-    cartaoNumero.innerText = inputNumero.value;
+    cartaoNumero.innerText = mcc(inputNumero.value);
 
     if(inputNumero.value.substring(0,1) == '4') {
-        cartaoLogo.src = 'assets/images/visa.png'
+        cartaoLogo.src = 'assets/images/visa.png';
+    } else if(inputNumero.value.substring(0,2) > '50' && inputNumero.value.substring(0,2) < '56') {
+        cartaoLogo.src = 'assets/images/master-card.webp';
+    } else if(inputNumero.value.substring(0,1) == '6') {
+        cartaoLogo.src = 'assets/images/discover.PNG';
+    } else if(inputNumero.value.substring(0,2) > '33' && inputNumero.value.substring(0,2) < '38') {
+        cartaoLogo.src = 'assets/images/american-express.jpg';
     } else {
-        cartaoLogo.src = 'assets/images/master-card.webp'
+        cartaoLogo.src = '';
     }
 });
 
@@ -26,13 +32,17 @@ inputNumero.addEventListener('keydown', () => {
     }
 
     inputNumero.value = inputNumero.value.substr(0, 15); 
-})
+});
 
 //Add mascara para colocar espaço nos número do cartao
-// function mcc(v) {
-//     v = v.replace(/\D/g, "");
-//     return v.match(/\d{1,4}/g).join(' ');
-// }
+function mcc(v) {
+    v = v.replace(/\D/g,""); // Permite apenas dígitos
+    v = v.replace(/(\d{4})/g, "$1."); // Coloca um ponto a cada 4 caracteres
+    v = v.replace(/\.$/, ""); // Remove o ponto se estiver sobrando
+    v = v.substring(0, 19)// Limita o tamanho
+
+    return v;
+}
 
 //Preenchendo o nome do titular no cartão
 inputTitular.addEventListener('keyup', () => cartaoTitular.innerText = inputTitular.value.toUpperCase());
@@ -88,6 +98,20 @@ inputCvc.addEventListener('blur', () => {
     frenteCartao.classList.add("animate__flipInY");
 });
 
+//Add máscara no número do CPF
+
+// inputCpf.addEventListener('keyup', formatarCPF);
+
+// function formatarCPF(e) {
+    
+//     // var v=e.target.value.replace(/\D/g,'');
+//     // v = v.replace(/(\d{3})(\d)/,"$1.$2");
+//     // v = v.replace(/(\d{3})(\d)/,"$1.$2");
+//     // v = v.replace(/(\d{3})(\d)/,"$1.$2");
+//     // v = v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+
+//     // e.target.value = v;
+// }
 
 
 

@@ -1,71 +1,59 @@
 //Acessando os elementos do HTML
-let btnSoma = document.getElementById("soma");
-let btnDiminui = document.getElementById("diminui");
-let quantidade = document.getElementById("quantidade");
-let preco = document.getElementById("preco");
-let total = document.getElementById("total");
 let tableItens = document.getElementById("table-itens");
 
-// let produtos = [
-//     {
-//         id: 1,
-//         nome: "Refrigerante",
-//         preco: "12.50",
-//         quantidade: "2"
-//     },
-//     {
-//         id: 2,
-//         nome: "Blusa",
-//         preco: "80.00",
-//         quantidade: "1"
-//     }
-// ];
+//Importando os elementos selecionados pelo usuário
+let protudosObtidos = JSON.parse(localStorage.getItem('produtosCarrinho'));
 
-// localStorage.setItem("produtos", JSON.stringify(produtos));
+//Compondo a tabela com os elementos importados
+protudosObtidos.forEach(element => {
+    tableItens.innerHTML += `
+    <tr>
+        <td>${element.nome}</td>
+        <td  class="preco">R$ ${element.preco}</td>
+        <td>
+            <button class="btn btn-secondary btn-sm btn-soma">+</button>
+            <input type="number" class="form-control-sm text-center quantidade" value="1">
+            <button class="btn btn-secondary btn-sm btn-diminui">-</button>
+        </td>
+        <td>R$ <span class="total">${element.preco}</span></td>
+    </tr> 
+    `
+});
 
-// let protudosObtidos = JSON.parse(localStorage.getItem("produtos"));
-// // console.log(protudosObtidos);
-// // console.log(tableItens);
-
-// protudosObtidos.forEach(element => {
-//     tableItens.innerHTML += `
-//     <tr>
-//         <td>${element.nome}</td>
-//         <td id="preco">R$ ${element.preco}</td>
-//         <td>
-//             <button class="btn btn-secondary btn-sm" id="soma">+</button>
-//             <input type="number" class="form-control-sm text-center" value="${element.quantidade}" id="quantidade">
-//             <button class="btn btn-secondary btn-sm" id="diminui">-</button>
-//         </td>
-//         <td>R$ <span id="total"></span></td>
-//     </tr> 
-//     `
-// });
+//Add ao botao a funcionalidade de somar produtos
+document.querySelectorAll('.btn-soma').forEach(elemento => {
+    elemento.addEventListener('click', () => {
+        const quantidade = elemento.parentNode.querySelector('.quantidade');
+        quantidade.value = +quantidade.value + 1;
+        atualizaTotal(elemento);        
+    })
+})
 
 //console.log(preco.textContent.substring(3,8));
 
-//Add ao botao a funcionalidade de somar produtos
-btnSoma.addEventListener('click', () => {
-    quantidade.value = +quantidade.value + 1;
-    atualizaTotal();
-});
-
-//Add ao botao a funcionalidade de subtrair produtos
-btnDiminui.addEventListener('click', () => {
-    if(quantidade.value > 1) {
-        quantidade.value = +quantidade.value - 1;
-    }
-    atualizaTotal();    
+document.querySelectorAll('.btn-diminui').forEach(elemento => {
+    elemento.addEventListener('click', () => {
+        const quantidade = elemento.parentNode.querySelector('.quantidade');
+        if(quantidade.value > 1) {
+            quantidade.value = +quantidade.value - 1;
+        }
+        atualizaTotal(elemento);
+    })
 });
 
 //Atualizar total se digitado quantidade de produtos
-quantidade.addEventListener('blur', () => {
-    atualizaTotal();
+document.querySelectorAll('.quantidade').forEach(elemento => {
+    elemento.addEventListener('blur', () => atualizaTotal(elemento))
 });
 
 //Funcao que atualiza total
-function atualizaTotal() {
+function atualizaTotal(elemento) {
+    const linha = elemento.closest('tr');
+    const preco = linha.querySelector('.preco');
+    const quantidade = linha.querySelector('.quantidade');
+    const total = linha.querySelector('.total');
+
     let resultado = +preco.textContent.substring(3,8) * quantidade.value;
-    total.innerText = "R$ " + resultado.toFixed(2);
+    total.innerText = resultado.toFixed(2);
 };
 
