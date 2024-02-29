@@ -8,7 +8,7 @@ let protudosObtidos = JSON.parse(localStorage.getItem('produtosCarrinho'));
 protudosObtidos.forEach(element => {
     tableItens.innerHTML += `
     <tr>
-        <td>${element.nome}</td>
+        <td>${element.produto}</td>
         <td  class="preco">R$ ${element.preco}</td>
         <td>
             <button class="btn btn-secondary btn-sm btn-soma">+</button>

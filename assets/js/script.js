@@ -8,92 +8,99 @@ let nomeBtn = document.getElementById('nome-botao');
 let btnCar = document.getElementById('btn-car');
 let iconCarrinho = document.getElementById('icon-carrinho');
 
-let cards = [
-  {
-    id: 1,
-    nome: "Refrigerante",
-    descricao: "Descrição do refrigerante",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "10.00"
-  },
-  {
-    id: 2,
-    nome: "Pizza",
-    descricao: "Descrição da pizza",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "39.50"
-  },
-  {
-    id: 3,
-    nome: "Smartphone",
-    descricao: "Descrição do smartphone",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "2500.00"
-  },
-  {
-    id: 4,
-    nome: "Cerveja",
-    descricao: "Descrição da cerveja",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "7.00"
-  },
-  {
-    id: 5,
-    nome: "Chocolate",
-    descricao: "Descrição do chocolate",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "6.50"
-  },
-  {
-    id: 6,
-    nome: "Laptop",
-    descricao: "Descrição do laptop",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "5000.00"
-  },
-  {
-    id: 7,
-    nome: "Café",
-    descricao: "Descrição do café",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "5.50"
-  },
-  {
-    id: 8,
-    tipo: "Hamburguer",
-    descricao: "Descrição do hambúrguer",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "35.80"
-  },
-  {
-    id: 9,
-    nome: "Fones de Ouvido",
-    descricao: "Descrição dos fones de ouvido",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "8.50"
-  },
-  {
-    id: 10,
-    nome: "Chá",
-    descricao: "Descrição do chá",
-    imagem: "assets/images/produtos/fogao_embutido.webp",
-    preco: "2.20"
-  }
-];
+// let cards = [
+//   {
+//     id: 1,
+//     nome: "Refrigerante",
+//     descricao: "Descrição do refrigerante",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "10.00"
+//   },
+//   {
+//     id: 2,
+//     nome: "Pizza",
+//     descricao: "Descrição da pizza",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "39.50"
+//   },
+//   {
+//     id: 3,
+//     nome: "Smartphone",
+//     descricao: "Descrição do smartphone",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "2500.00"
+//   },
+//   {
+//     id: 4,
+//     nome: "Cerveja",
+//     descricao: "Descrição da cerveja",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "7.00"
+//   },
+//   {
+//     id: 5,
+//     nome: "Chocolate",
+//     descricao: "Descrição do chocolate",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "6.50"
+//   },
+//   {
+//     id: 6,
+//     nome: "Laptop",
+//     descricao: "Descrição do laptop",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "5000.00"
+//   },
+//   {
+//     id: 7,
+//     nome: "Café",
+//     descricao: "Descrição do café",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "5.50"
+//   },
+//   {
+//     id: 8,
+//     tipo: "Hamburguer",
+//     descricao: "Descrição do hambúrguer",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "35.80"
+//   },
+//   {
+//     id: 9,
+//     nome: "Fones de Ouvido",
+//     descricao: "Descrição dos fones de ouvido",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "8.50"
+//   },
+//   {
+//     id: 10,
+//     nome: "Chá",
+//     descricao: "Descrição do chá",
+//     imagem: "assets/images/produtos/fogao_embutido.webp",
+//     preco: "2.20"
+//   }
+// ];
 
-//Carregando os cards
-for (let i = 0; i < cards.length; i++) {
-  produtos.innerHTML += `
+let cards = [];
+
+fetch('http://localhost:3000/produtos')
+  .then(response => response.json())
+  .then(products => {
+    cards = products;
+    products.forEach(item => {
+      produtos.innerHTML += `
     <div class="card" style="width: 18rem;">
-    <img src="${cards[i].imagem}" class="card-img-top" alt="...">
+    <img src="${item.imagem}" class="card-img-top" alt="...">
     <div class="card-body">
-      <h5 class="card-title">${cards[i].nome}</h5>
-      <p class="card-text">${cards[i].descricao}</p>
-      <a href="#" class="btn btn-primary btn-comprar" id = "${cards[i].id}">Go somewhere</a>
+      <h5 class="card-title">${item.produto}</h5>
+      <p class="card-text">${item.preco}</p>
+      <a href="#" class="btn btn-primary btn-comprar" onclick="addProduto(${item.id})" id = "${item.id}">Go somewhere</a>
     </div>
     </div>
     `
-};
+    })
+  });
+
 
 //Add modo dark-light ao clicar no botão
 btnDark.addEventListener('click', () => {
@@ -167,23 +174,20 @@ function lightMode() {
   localStorage.setItem('darkMode', 'false');
 };
 
+
 //Add os produtos no localstorage
-
-document.querySelectorAll('.btn-comprar').forEach(elemento => {
-  elemento.addEventListener('click', () => {
-
-    cards.forEach(card => {
-      if (card.id == elemento.id) {
-        let salvosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'));
-        salvosCarrinho.push(card);
-        // console.log(salvosCarrinho)
-        localStorage.setItem('produtosCarrinho', JSON.stringify(salvosCarrinho));
-        console.log(JSON.parse(localStorage.getItem('produtosCarrinho')));
-        // console.log(card);        
-      }
-    });
+function addProduto(id) {
+  cards.forEach(card => {
+    if (card.id == id) {
+      let salvosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'));
+      salvosCarrinho.push(card);
+      // console.log(salvosCarrinho)
+      localStorage.setItem('produtosCarrinho', JSON.stringify(salvosCarrinho));
+      console.log(JSON.parse(localStorage.getItem('produtosCarrinho')));
+      // console.log(card);        
+    }
   });
-});
+};
 
 //Mantendo a página com os produtos carregados no carrinho
 if (localStorage.getItem('produtosCarrinho')) {
