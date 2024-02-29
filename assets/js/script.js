@@ -8,7 +8,6 @@ let nomeBtn = document.getElementById('nome-botao');
 let btnCar = document.getElementById('btn-car');
 let iconCarrinho = document.getElementById('icon-carrinho');
 
-//Carregando os cards
 let cards = [
   {
     id: 1,
@@ -82,6 +81,7 @@ let cards = [
   }
 ];
 
+//Carregando os cards
 for (let i = 0; i < cards.length; i++) {
   produtos.innerHTML += `
     <div class="card" style="width: 18rem;">
@@ -168,13 +168,12 @@ function lightMode() {
 };
 
 //Add os produtos no localstorage
-let produtosCarrinho = [];
-localStorage.setItem('produtosCarrinho', JSON.stringify(produtosCarrinho))
+
 document.querySelectorAll('.btn-comprar').forEach(elemento => {
-  elemento.addEventListener('click', () => {   
+  elemento.addEventListener('click', () => {
 
     cards.forEach(card => {
-      if(card.id == elemento.id) {
+      if (card.id == elemento.id) {
         let salvosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'));
         salvosCarrinho.push(card);
         // console.log(salvosCarrinho)
@@ -185,3 +184,11 @@ document.querySelectorAll('.btn-comprar').forEach(elemento => {
     });
   });
 });
+
+//Mantendo a página com os produtos carregados no carrinho
+if (localStorage.getItem('produtosCarrinho')) {
+
+} else {
+  let produtosCarrinho = [];
+  localStorage.setItem('produtosCarrinho', JSON.stringify(produtosCarrinho))
+};
