@@ -7,82 +7,30 @@ let icon = document.getElementById('icon');
 let nomeBtn = document.getElementById('nome-botao');
 let btnCar = document.getElementById('btn-car');
 let iconCarrinho = document.getElementById('icon-carrinho');
+let inputSearch = document.getElementById('search');
 
-// let cards = [
-//   {
-//     id: 1,
-//     nome: "Refrigerante",
-//     descricao: "Descrição do refrigerante",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "10.00"
-//   },
-//   {
-//     id: 2,
-//     nome: "Pizza",
-//     descricao: "Descrição da pizza",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "39.50"
-//   },
-//   {
-//     id: 3,
-//     nome: "Smartphone",
-//     descricao: "Descrição do smartphone",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "2500.00"
-//   },
-//   {
-//     id: 4,
-//     nome: "Cerveja",
-//     descricao: "Descrição da cerveja",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "7.00"
-//   },
-//   {
-//     id: 5,
-//     nome: "Chocolate",
-//     descricao: "Descrição do chocolate",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "6.50"
-//   },
-//   {
-//     id: 6,
-//     nome: "Laptop",
-//     descricao: "Descrição do laptop",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "5000.00"
-//   },
-//   {
-//     id: 7,
-//     nome: "Café",
-//     descricao: "Descrição do café",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "5.50"
-//   },
-//   {
-//     id: 8,
-//     tipo: "Hamburguer",
-//     descricao: "Descrição do hambúrguer",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "35.80"
-//   },
-//   {
-//     id: 9,
-//     nome: "Fones de Ouvido",
-//     descricao: "Descrição dos fones de ouvido",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "8.50"
-//   },
-//   {
-//     id: 10,
-//     nome: "Chá",
-//     descricao: "Descrição do chá",
-//     imagem: "assets/images/produtos/fogao_embutido.webp",
-//     preco: "2.20"
-//   }
-// ];
+//Filtrando na tabela de produtos
+inputSearch.addEventListener('keyup', () => {
+  produtos.innerHTML = '';
 
+  const produtosFiltrados = cards.filter(product => product.produto.toLowerCase().includes(inputSearch.value.toLowerCase()));
+  produtosFiltrados.forEach(item => {
+    produtos.innerHTML += `
+    <div class="card" style="width: 18rem;">
+      <img src="${item.imagem}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">${item.produto}</h5>
+        <p class="card-text">${item.preco}</p>
+        <a href="#" class="btn btn-primary btn-comprar" onclick="addProduto(${item.id})" id = "${item.id}">Go somewhere</a>
+      </div>
+      </div>
+    `
+  });
+
+});
+
+//Preenchendo a página com cards vindos da API fake
 let cards = [];
-
 fetch('http://localhost:3000/produtos')
   .then(response => response.json())
   .then(products => {
