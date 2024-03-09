@@ -128,12 +128,12 @@ function addProduto(id) {
   cards.forEach(card => {
     if (card.id == id) {
       let salvosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'));
-      salvosCarrinho.push(card);
-      // console.log(salvosCarrinho)
-      localStorage.setItem('produtosCarrinho', JSON.stringify(salvosCarrinho));
-      console.log(JSON.parse(localStorage.getItem('produtosCarrinho')));
-      // console.log(card);        
-    }
+      let verificaCard = salvosCarrinho.find(card => card.id == id);
+      if(verificaCard == undefined) {
+        salvosCarrinho.push(card);
+        localStorage.setItem('produtosCarrinho', JSON.stringify(salvosCarrinho));
+      };       
+    };
   });
 };
 
